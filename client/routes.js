@@ -16,6 +16,7 @@ import {me} from './store'
 /**
  * COMPONENT
  */
+
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
