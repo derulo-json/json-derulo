@@ -3,15 +3,15 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import './nav.css'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>BOILERMAKER</h1>
+    <h1>JSON Derulo</h1>
     <nav>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -23,6 +23,18 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/signup">Sign Up</Link>
         </div>
       )}
+      <Link to="/home">Home</Link>
+      <Link to="/cart">Cart</Link>
+      <div className="dropdown">
+        <button type="button" className="dropbtn">
+          Shop
+        </button>
+        <div className="dropdown-content">
+          <Link to="/AllProducts">All Products</Link>
+          <Link to="/Shirts">Shirts </Link>
+          <Link to="/Accessories">Accessories</Link>
+        </div>
+      </div>
     </nav>
     <hr />
   </div>
