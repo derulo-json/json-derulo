@@ -30,7 +30,7 @@ async function seed() {
         'https://di2ponv0v5otw.cloudfront.net/posts/2018/06/27/5b344747baebf6877a728f74/m_5b3447b63c98447789f180c9.jpg',
       price: 99.99,
       quantity: 5,
-      category: 'misc',
+      category: 'treasures',
       description: 'Basically like you were in his dressing room'
     }),
     Product.create({
@@ -39,7 +39,7 @@ async function seed() {
         'https://media.istockphoto.com/photos/crumpled-tissue-paper-on-white-background-picture-id595754786?k=6&m=595754786&s=612x612&w=0&h=3XJd7ZtcISKsqybC5ldSIB8Cs_EMYxgOm1JHaM9N0Fs=',
       price: 49.99,
       quantity: 1,
-      category: 'misc',
+      category: 'treasures',
       description: 'Catch the scent, not the germs'
     }),
     Product.create({
@@ -48,7 +48,7 @@ async function seed() {
         'https://previews.123rf.com/images/eric1513/eric15131601/eric1513160100017/51981643-detail-of-white-socks-poor-person-hole-holey-worn-out.jpg',
       price: 499.99,
       quantity: 1,
-      category: 'misc',
+      category: 'treasures',
       description: "Limited edition socks socks he didn't want anymore!"
     }),
     Product.create({
@@ -57,7 +57,7 @@ async function seed() {
         'https://kawaii.kawaii.at/img/white-bunny-rabbit-purple-bow-Poteusa-Loppy-plush-toy-from-Japan-212275-2.JPG',
       price: 599.99,
       quantity: 1,
-      category: 'misc',
+      category: 'treasures',
       description: 'Rumour has it that these just MIGHT be his...'
     }),
 

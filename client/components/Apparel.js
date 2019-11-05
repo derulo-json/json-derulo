@@ -2,16 +2,19 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {gotAllProductsThunk} from '../store/products'
 
-class AllProducts extends Component {
+class Apparel extends Component {
   componentDidMount() {
     this.props.gotAllProductsThunk()
   }
 
   render() {
+    const filtered = this.props.products.filter(
+      product => product.category === 'apparel'
+    )
     return (
       <div>
         <div id="products-container" className="left-container">
-          {this.props.products.map(product => (
+          {filtered.map(product => (
             <div key={product.id}>
               <div>{product.name}</div>
               <div>
@@ -31,4 +34,4 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   gotAllProductsThunk: () => dispatch(gotAllProductsThunk())
 })
-export default connect(mapState, mapDispatch)(AllProducts)
+export default connect(mapState, mapDispatch)(Apparel)

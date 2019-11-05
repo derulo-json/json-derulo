@@ -31,8 +31,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         </button>
         <div className="dropdown-content">
           <Link to="/AllProducts">All Products</Link>
-          <Link to="/Shirts">Shirts </Link>
-          <Link to="/Accessories">Accessories</Link>
+          <Link to="/Apparel">Apparel </Link>
+          <Link to="/Music">Music</Link>
+          <Link to="/Treasures">Treasures</Link>
         </div>
       </div>
     </nav>
