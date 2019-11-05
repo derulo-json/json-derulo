@@ -14,9 +14,7 @@ export function getAllCarts(carts) {
 }
 
 export function newCartThunk() {
-  return async dispatch => {
-    const {data} = await Axios.create('/api/carts', {})
-  }
+  return async dispatch => {}
 }
 
 export function getAllCartsThunk() {
@@ -26,7 +24,7 @@ export function getAllCartsThunk() {
   }
 }
 
-export default function cartReducer(state = initialState, action) {
+export default function cartReducer(state = [], action) {
   switch (action.type) {
     case GET_ALL_CARTS:
       return {...state, carts: action.carts}

@@ -19,4 +19,13 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+router.post('/', async (req, res, next) => {
+  try {
+    const cartItems = await CartItem.create(req.body)
+    res.json(cartItems)
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router
