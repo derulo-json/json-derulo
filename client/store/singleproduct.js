@@ -8,10 +8,10 @@ const GET_PRODUCT = 'GET_PRODUCT'
 /**
  * ACTION CREATORS
  */
-const getSingleProduct = product => {
+const getSingleProduct = singleproduct => {
   return {
     type: GET_PRODUCT,
-    product
+    singleproduct
   }
 }
 
@@ -33,7 +33,7 @@ export const gotProductThunk = id => async dispatch => {
 export default function(state = {}, action) {
   switch (action.type) {
     case GET_PRODUCT:
-      return action.product
+      return action.singleproduct
     default:
       return state
   }
