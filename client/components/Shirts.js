@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 
-class AllProducts extends Component {
+class Shirts extends Component {
   render() {
     return <div />
   }
 }
 
-export default AllProducts
+export default Shirts
