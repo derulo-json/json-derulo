@@ -1,24 +1,15 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-module.exports = db.define('cart', {
+const Cart = db.define('cart', {
   // define your model here!
-  name: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
-  },
-  imageUrl: {
-    type: Sequelize.STRING,
-    defaultValue: ''
-  },
+})
+
+const CartItem = db.define('cartItem', {
   quantity: {
     type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    allowNull: false
   }
 })
+
+module.exports = {Cart, CartItem}
