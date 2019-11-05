@@ -8,9 +8,7 @@ import {
   UserHome,
   HomePage,
   AllProducts,
-  Apparel,
-  Music,
-  Treasures,
+  Filtered,
   SingleProduct
 } from './components'
 import {me} from './store'
@@ -35,9 +33,12 @@ class Routes extends Component {
         <Route path="/home" component={HomePage} />
         <Route path="/AllProducts/:id" component={SingleProduct} />
         <Route path="/AllProducts" component={AllProducts} />
-        <Route path="/Apparel" component={Apparel} />
-        <Route path="/Music" component={Music} />
-        <Route path="/Treasures" component={Treasures} />
+        <Route path="/Apparel" render={() => <Filtered category="apparel" />} />
+        <Route path="/Music" render={() => <Filtered category="music" />} />
+        <Route
+          path="/Treasures"
+          render={() => <Filtered category="treasures" />}
+        />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

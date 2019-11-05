@@ -1,15 +1,16 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {gotAllProductsThunk} from '../store/products'
+import {Link} from 'react-router-dom'
 
-class Treasures extends Component {
+class Filtered extends Component {
   componentDidMount() {
     this.props.gotAllProductsThunk()
   }
 
   render() {
     const filtered = this.props.products.filter(
-      product => product.category === 'treasures'
+      product => product.category === this.props.category
     )
     return (
       <div>
@@ -18,7 +19,9 @@ class Treasures extends Component {
             <div key={product.id}>
               <div>{product.name}</div>
               <div>
-                <img src={product.imageUrl} />
+                <Link to={`/AllProducts/${product.id}`}>
+                  <img src={product.imageUrl} />
+                </Link>
               </div>
             </div>
           ))}
@@ -34,4 +37,4 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   gotAllProductsThunk: () => dispatch(gotAllProductsThunk())
 })
-export default connect(mapState, mapDispatch)(Treasures)
+export default connect(mapState, mapDispatch)(Filtered)
