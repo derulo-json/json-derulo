@@ -2,10 +2,21 @@ import Axios from 'axios'
 import history from '../history'
 import initialState from './index'
 
+const NEW_CART = 'NEW_CART'
 const GET_ALL_CARTS = 'GET_ALL_CARTS'
+
+export function newCart(cart) {
+  return {type: NEW_CART, cart}
+}
 
 export function getAllCarts(carts) {
   return {type: GET_ALL_CARTS, carts}
+}
+
+export function newCartThunk() {
+  return async dispatch => {
+    const {data} = await Axios.create('/api/carts', {})
+  }
 }
 
 export function getAllCartsThunk() {

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import initialState from './index'
 
 const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS'
 
@@ -15,8 +16,4 @@ export const gotAllProducts = () => async dispatch => {
   } catch (error) {
     next(error)
   }
-}
-
-const initialState = {
-  products: []
 }
