@@ -4,7 +4,6 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS'
-
 /**
  * ACTION CREATORS
  */
