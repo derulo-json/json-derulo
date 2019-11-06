@@ -18,7 +18,6 @@ router.get('/', async (req, res, next) => {
 
 router.post('/:userId/cart', async (req, res, next) => {
   try {
-    console.log(req.body)
     const [orderRow, orderRowCreated] = await Order.findOrCreate({
       where: {
         userId: req.params.userId
@@ -40,7 +39,8 @@ router.post('/:userId/cart', async (req, res, next) => {
         quantity: ++cartRow.quantity
       })
     }
-    res.json('Added to cart!')
+    const entireCart = await Cart.findAll({raw: true})
+    res.json(entireCart)
   } catch (error) {
     next(error)
   }
