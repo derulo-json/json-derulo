@@ -1,3 +1,10 @@
+## Other notes
+
+* set up your database again (Alisa & Tim)
+* fix a few bugs
+* make a PR for your cart ASAP => everyone is on the same page about this cart. (Ethan and Yooni)
+* checkout and deployment
+
 # Boilermaker
 
 _Good things come in pairs_

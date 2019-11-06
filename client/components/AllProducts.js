@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {gotAllProductsThunk} from '../store/products'
 import {Link} from 'react-router-dom'
 
+// become a functional component that connects to the store and maps to products
 class AllProducts extends Component {
   componentDidMount() {
     this.props.gotAllProductsThunk()
@@ -29,6 +30,9 @@ class AllProducts extends Component {
 }
 
 const mapState = state => ({
+  // here: do a filter inside of here
+  // make a call to the backend to filter based off the query params of category: apparel
+  // keep track of a list of constants for categories that you can filter from
   products: state.products
 })
 const mapDispatch = dispatch => ({

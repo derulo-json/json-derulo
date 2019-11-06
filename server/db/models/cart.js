@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 const Cart = db.define('cart', {
+  // accurately reflects products - orders
+  // don't need the individual foreign keys in here
   // define your model here!
   userId: {
     type: Sequelize.INTEGER,
@@ -14,5 +16,6 @@ const Cart = db.define('cart', {
     type: Sequelize.INTEGER,
     allowNull: false
   }
+  // current price as of meow
 })
 module.exports = Cart
