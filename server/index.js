@@ -60,6 +60,25 @@ const createApp = () => {
       saveUninitialized: false
     })
   )
+
+  // regardless of user or guest, you will have a cart in local storage
+  // sign in, your cart is going to merge into the DB
+
+  // signed in users
+  // update the DB with the cart and any changes will be made directly to the DB
+  // whether or not you want to clear local storage
+
+  // on logout -> local storage is cleared
+
+  // don't want to expost POST, PUT, DELETE
+  // GET user information
+  // GET cart information -> only want your own cart to be seen, and edited
+  // req.body => only take the information that you need
+
+  // checkout:
+  // change your status to fulfilled, or a boolean of isCart to false
+  // mayyybe update your quantities in your products
+
   app.use(passport.initialize())
   app.use(passport.session())
 
