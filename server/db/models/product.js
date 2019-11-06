@@ -12,24 +12,27 @@ const Product = db.define('products', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: '' // some default image
-    // isUrl validation
-  },
-  price: {
-    type: Sequelize.DECIMAL(10, 2),
-    // negatives - make sure that you have a min, also have a max
-    // counting in pennies -> integer
-    allowNull: false,
+    defaultValue:
+      'https://cdngeneral.rentcafe.com/images/no-image-available-400.png',
     validate: {
-      notEmpty: true
+      isUrl: true
     }
   },
-  quantity: {
-    // negative quantity
+  price: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
+      min: 0,
+      max: 100000000000000
+    }
+  },
+  quantity: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      min: 0
     }
   },
   category: {
@@ -37,10 +40,12 @@ const Product = db.define('products', {
     // enum
     // more than one category ? -> another join table
     type: Sequelize.STRING,
-    allowNull: false, // maybe they don't have a category?
+    allowNull: false,
+    defaultValue: 'treasures',
     validate: {
       notEmpty: true
-    }
+    },
+    values: ['treasures', 'music', 'apparel']
   },
   description: {
     type: Sequelize.TEXT
