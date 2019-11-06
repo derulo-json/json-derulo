@@ -33,18 +33,18 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/home" component={HomePage} />
-        <Route path="/AllProducts/:id" component={SingleProduct} />
+        <Route path="/allproducts/:id" component={SingleProduct} />
         <Route
-          path="/AllProducts"
+          path="/allproducts"
           render={() => <AllProducts category="all" />}
         />
         <Route
-          path="/Apparel"
+          path="/apparel"
           render={() => <AllProducts category="apparel" />}
         />
-        <Route path="/Music" render={() => <AllProducts category="music" />} />
+        <Route path="/music" render={() => <AllProducts category="music" />} />
         <Route
-          path="/Treasures"
+          path="/treasures"
           render={() => <AllProducts category="treasures" />}
         />
         {isLoggedIn && (

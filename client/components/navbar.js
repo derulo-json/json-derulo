@@ -30,10 +30,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           Shop
         </button>
         <div className="dropdown-content">
-          <Link to="/AllProducts">All Products</Link>
-          <Link to="/Apparel">Apparel </Link>
-          <Link to="/Music">Music</Link>
-          <Link to="/Treasures">Treasures</Link>
+          <Link to="/allproducts">All Products</Link>
+          <Link to="/apparel">Apparel </Link>
+          <Link to="/music">Music</Link>
+          <Link to="/treasures">Treasures</Link>
           <Link to="/cart">Cart</Link>
         </div>
       </div>

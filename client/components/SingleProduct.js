@@ -29,7 +29,7 @@ class SingleProduct extends Component {
         <div id="products-container" className="left-container">
           <div>{singleProduct.name}</div>
           <img src={singleProduct.imageUrl} />
-          <div>${singleProduct.price}</div>
+          <div>${singleProduct.price / 100}</div>
           <div>{singleProduct.description}</div>
           <button onClick={this.handleClick} type="button">
             Add To Cart
