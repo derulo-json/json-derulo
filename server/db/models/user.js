@@ -6,8 +6,10 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
-    // isEmail validation
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: Sequelize.STRING,
@@ -17,12 +19,20 @@ const User = db.define('user', {
       return () => this.getDataValue('password')
     }
   },
-  // need extra validations to ensure they're not empty or null, etc.
+
   firstName: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   lastName: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   salt: {
     type: Sequelize.STRING,

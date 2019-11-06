@@ -10,10 +10,19 @@ class AllProducts extends Component {
   }
 
   render() {
+    let filtered = []
+    if (this.props.category === 'all') {
+      filtered = this.props.products
+    } else {
+      filtered = this.props.products.filter(
+        product => product.category === this.props.category
+      )
+    }
+
     return (
       <div>
         <div id="products-container" className="left-container">
-          {this.props.products.map(product => (
+          {filtered.map(product => (
             <div key={product.id}>
               <div>{product.name}</div>
               <div>
@@ -30,9 +39,6 @@ class AllProducts extends Component {
 }
 
 const mapState = state => ({
-  // here: do a filter inside of here
-  // make a call to the backend to filter based off the query params of category: apparel
-  // keep track of a list of constants for categories that you can filter from
   products: state.products
 })
 const mapDispatch = dispatch => ({
