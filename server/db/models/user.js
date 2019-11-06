@@ -7,6 +7,7 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false
+    // isEmail validation
   },
   password: {
     type: Sequelize.STRING,
@@ -16,6 +17,7 @@ const User = db.define('user', {
       return () => this.getDataValue('password')
     }
   },
+  // need extra validations to ensure they're not empty or null, etc.
   firstName: {
     type: Sequelize.STRING
   },
