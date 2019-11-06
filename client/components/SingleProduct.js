@@ -3,16 +3,23 @@ import {connect} from 'react-redux'
 import {gotProductThunk} from '../store/singleproduct'
 import {addToCartThunk} from '../store/cartItems'
 import store from '../store'
+
 class SingleProduct extends Component {
   constructor() {
     super()
     this.state = {
       cart: JSON.parse(localStorage.getItem('cart'))
     }
+
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
     this.props.gotProductThunk(this.props.match.params.id)
+    if (this.state.cart === null) {
+      this.setState({
+        cart: []
+      })
+    }
   }
 
   render() {
@@ -39,6 +46,7 @@ class SingleProduct extends Component {
 
   handleClick(e) {
     e.preventDefault()
+    console.log(this.state.cart)
     this.state.cart.push(this.props.singleproduct)
     this.saveToLocal()
     console.log(this.state.cart)
