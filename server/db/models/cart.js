@@ -5,7 +5,7 @@ const Cart = db.define('cart', {
   // accurately reflects products - orders
   // don't need the individual foreign keys in here
   // define your model here!
-  transactionAmount: {
+  currentPrice: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
