@@ -10,10 +10,19 @@ class AllProducts extends Component {
   }
 
   render() {
+    let filtered = []
+    if (this.props.category === 'all') {
+      filtered = this.props.products
+    } else {
+      filtered = this.props.products.filter(
+        product => product.category === this.props.category
+      )
+    }
+
     return (
       <div>
         <div id="products-container" className="left-container">
-          {this.props.products.map(product => (
+          {filtered.map(product => (
             <div key={product.id}>
               <div>{product.name}</div>
               <div>

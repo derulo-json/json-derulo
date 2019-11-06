@@ -32,12 +32,18 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/home" component={HomePage} />
         <Route path="/AllProducts/:id" component={SingleProduct} />
-        <Route path="/AllProducts" component={AllProducts} />
-        <Route path="/Apparel" render={() => <Filtered category="apparel" />} />
-        <Route path="/Music" render={() => <Filtered category="music" />} />
+        <Route
+          path="/AllProducts"
+          render={() => <AllProducts category="all" />}
+        />
+        <Route
+          path="/Apparel"
+          render={() => <AllProducts category="apparel" />}
+        />
+        <Route path="/Music" render={() => <AllProducts category="music" />} />
         <Route
           path="/Treasures"
-          render={() => <Filtered category="treasures" />}
+          render={() => <AllProducts category="treasures" />}
         />
         {isLoggedIn && (
           <Switch>
