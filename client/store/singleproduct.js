@@ -1,10 +1,9 @@
 import axios from 'axios'
-
+import initialState from './index'
 /**
  * ACTION TYPES
  */
 const GET_PRODUCT = 'GET_PRODUCT'
-
 /**
  * ACTION CREATORS
  */
@@ -18,6 +17,7 @@ const getSingleProduct = singleproduct => {
 /**
  * THUNK CREATORS
  */
+
 export const gotProductThunk = id => async dispatch => {
   try {
     const {data} = await axios.get(`/api/products/${id}`)
