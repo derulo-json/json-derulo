@@ -36,9 +36,6 @@ const Product = db.define('products', {
     }
   },
   category: {
-    // ? limit this => separate table to store the category
-    // enum
-    // more than one category ? -> another join table
     type: Sequelize.STRING,
     allowNull: false,
     defaultValue: 'treasures',

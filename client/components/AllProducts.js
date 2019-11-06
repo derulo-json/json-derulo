@@ -39,9 +39,6 @@ class AllProducts extends Component {
 }
 
 const mapState = state => ({
-  // here: do a filter inside of here
-  // make a call to the backend to filter based off the query params of category: apparel
-  // keep track of a list of constants for categories that you can filter from
   products: state.products
 })
 const mapDispatch = dispatch => ({
