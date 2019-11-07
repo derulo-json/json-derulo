@@ -21,13 +21,6 @@ class MyCart extends Component {
             </tr>
           </thead>
           <tbody>
-            {/* <tr>  
-               <td key = 'products'>
-                 <Button type="button" color="teal" > 
-                   <Icon trash='trash' name='trash'/>  
-                 </Button>
-               </td> 
-            </tr> */}
             {this.props.cart.cart &&
               this.props.cart.cart.products.map(product => (
                 <tr key="hello">
@@ -38,12 +31,10 @@ class MyCart extends Component {
                   </td>
                   <td>
                     {product.name}
-                    <img
-                      src={product.imageUrl}
-                      width="92px"
-                      style="position: relative"
-                    />
+                    <img id="cartIMG" src={product.imageUrl} width="92px" />
                   </td>
+                  <td>{product.cart.quantity}</td>
+                  <td>{product.price}</td>
                 </tr>
               ))}
           </tbody>
