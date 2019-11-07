@@ -6,13 +6,7 @@ class MyCart extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
   render() {
-    return (
-      <div>
-        <button type="button" onClick={this.handleClick}>
-          clear cart
-        </button>
-      </div>
-    )
+    return <div />
   }
   handleClick(e) {
     e.preventDefault()

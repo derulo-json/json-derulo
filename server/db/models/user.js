@@ -22,17 +22,11 @@ const User = db.define('user', {
 
   firstName: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    defaultValue: 'Update Name'
   },
   lastName: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    defaultValue: 'Update Name'
   },
   salt: {
     type: Sequelize.STRING,

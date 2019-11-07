@@ -29,11 +29,15 @@ class SingleProduct extends Component {
         <div id="products-container" className="left-container">
           <div>{singleProduct.name}</div>
           <img src={singleProduct.imageUrl} />
-          <div>${singleProduct.price / 100}</div>
           <div>{singleProduct.description}</div>
-          <button onClick={this.handleClick} type="button">
-            Add To Cart
-          </button>
+          <div
+            onClick={this.handleClick}
+            className="ui animated fade button"
+            tabIndex="0"
+          >
+            <div className="visible content">Add to Cart!</div>
+            <div className="hidden content">${singleProduct.price / 100}</div>
+          </div>
         </div>
       </div>
     )
