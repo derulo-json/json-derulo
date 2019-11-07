@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {gotProductThunk} from '../store/singleproduct'
-
-import store from '../store'
+import {addToCartThunk} from '../store/cart'
 
 class SingleProduct extends Component {
   constructor() {
@@ -23,7 +22,7 @@ class SingleProduct extends Component {
   }
 
   render() {
-    const singleProduct = this.props.singleproduct
+    const singleProduct = this.props.singleProduct
     return (
       <div>
         <div id="products-container" className="left-container">
@@ -41,22 +40,29 @@ class SingleProduct extends Component {
 
   saveToLocal() {
     localStorage.setItem('cart', JSON.stringify(this.state.cart))
-    this.setState(JSON.parse(localStorage.getItem('cart')))
+    // this.setState(JSON.parse(localStorage.getItem('cart')))
   }
 
   handleClick(e) {
     e.preventDefault()
     console.log(this.state.cart)
-    this.state.cart.push(this.props.singleproduct)
+    this.state.cart.push(this.props.singleProduct)
     this.saveToLocal()
+    console.log('user id', this.props.user.id)
+    console.log('singleproduct', this.props.singleProduct)
+    this.props.addToCartThunk(this.props.user.id, this.props.singleProduct)
     console.log(this.state.cart)
   }
 }
 
 const mapState = state => ({
-  singleproduct: state.singleproduct
+  singleProduct: state.singleProduct,
+  user: state.user
 })
+
 const mapDispatch = dispatch => ({
-  gotProductThunk: id => dispatch(gotProductThunk(id))
+  gotProductThunk: id => dispatch(gotProductThunk(id)),
+  addToCartThunk: (userId, item) => dispatch(addToCartThunk(userId, item))
 })
+
 export default connect(mapState, mapDispatch)(SingleProduct)
