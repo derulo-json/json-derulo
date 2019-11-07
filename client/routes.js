@@ -5,10 +5,8 @@ import PropTypes from 'prop-types'
 import {
   Login,
   Signup,
-  UserHome,
   HomePage,
   AllProducts,
-  Filtered,
   SingleProduct,
   MyCart
 } from './components'
