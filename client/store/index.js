@@ -4,7 +4,7 @@ import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import userReducer from './user'
 import productsReducer from './products'
-import singleproductReducer from './singleproduct'
+import singleProductReducer from './singleproduct'
 import cartReducer from './cart'
 
 // const initialState = {
@@ -17,9 +17,9 @@ import cartReducer from './cart'
 // }
 
 const reducer = combineReducers({
-  currentUser: userReducer,
+  user: userReducer,
   products: productsReducer,
-  singleproduct: singleproductReducer,
+  singleProduct: singleProductReducer,
   cart: cartReducer
 })
 

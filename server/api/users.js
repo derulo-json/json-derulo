@@ -23,7 +23,7 @@ router.post('/:userId/cart', async (req, res, next) => {
         userId: req.params.userId
       }
     })
-    const prodId = req.body.productId
+    const prodId = req.body.id
     const [cartRow, cartRowCreated] = await Cart.findOrCreate({
       where: {
         orderId: orderRow.id,
