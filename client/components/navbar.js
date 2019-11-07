@@ -7,38 +7,40 @@ import './NavBar.css'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>JSON Derulo</h1>
     <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
-      <Link to="/home">Home</Link>
-      <Link to="/cart">Cart</Link>
-      <div className="dropdown">
-        <button type="button" className="dropbtn">
-          Shop
-        </button>
-        <div className="dropdown-content">
-          <Link to="/allproducts">All Products</Link>
-          <Link to="/apparel">Apparel </Link>
-          <Link to="/music">Music</Link>
-          <Link to="/treasures">Treasures</Link>
+      <div className="ui inverted segment">
+        <div className="ui inverted secondary menu">
+          {isLoggedIn ? (
+            <div>
+              {/* The navbar will show these links after you log in */}
+              <a href="#" onClick={handleClick}>
+                Logout
+              </a>
+            </div>
+          ) : (
+            <div>
+              {/* The navbar will show these links before you log in */}
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link>
+            </div>
+          )}
+          <Link to="/home">Home</Link>
           <Link to="/cart">Cart</Link>
+          <div className="dropdown">
+            <button background-color="unset" type="button" className="dropbtn">
+              Shop
+            </button>
+            <div className="dropdown-content">
+              <Link to="/allproducts">All Products</Link>
+              <Link to="/apparel">Apparel </Link>
+              <Link to="/music">Music</Link>
+              <Link to="/treasures">Treasures</Link>
+              <Link to="/cart">Cart</Link>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
-    <hr />
   </div>
 )
 

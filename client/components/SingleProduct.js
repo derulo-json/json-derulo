@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {gotProductThunk} from '../store/singleproduct'
-import {addToCartThunk} from '../store/cart'
+import {addToCartThunk} from '../store/CartReducer'
 
 class SingleProduct extends Component {
   constructor() {
