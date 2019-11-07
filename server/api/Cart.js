@@ -1,9 +1,12 @@
 const router = require('express').Router()
-const {Cart} = require('../db/models/cart')
+const {Cart, Order, Product} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   try {
-    const cart = await Cart.findAll()
+    const cart = await Order.findOne({
+      where: {userId: req.session.passport.user},
+      include: [{model: Product}]
+    })
     res.json(cart)
   } catch (error) {
     next(error)

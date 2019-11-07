@@ -5,7 +5,7 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import userReducer from './user'
 import productsReducer from './products'
 import singleProductReducer from './singleproduct'
-import cartReducer from './cart'
+import cartReducer from './CartReducer'
 
 // const initialState = {
 //   products: [],
