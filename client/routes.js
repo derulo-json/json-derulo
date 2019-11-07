@@ -8,7 +8,6 @@ import {
   UserHome,
   HomePage,
   AllProducts,
-  Filtered,
   SingleProduct,
   MyCart
 } from './components'
