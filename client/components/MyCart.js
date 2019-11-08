@@ -1,9 +1,14 @@
 import React, {Component} from 'react'
-import {getCartThunk} from '../store/CartReducer'
+import {getCartThunk, removeFromCartThunk} from '../store/CartReducer'
 import {connect} from 'react-redux'
 import {Icon, Button} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 
 class MyCart extends Component {
+  constructor() {
+    super()
+    this.handleClick = this.handleClick.bind(this)
+  }
   componentDidMount() {
     this.props.getCartThunk()
   }
@@ -23,9 +28,9 @@ class MyCart extends Component {
           <tbody>
             {this.props.cart.cart &&
               this.props.cart.cart.products.map(product => (
-                <tr key="hello">
-                  <td key="products">
-                    <Button type="button" color="teal">
+                <tr key={product.id}>
+                  <td>
+                    <Button onClick={this.handleClick(product.id)} color="teal">
                       <Icon trash="trash" name="trash" />
                     </Button>
                   </td>
@@ -45,7 +50,9 @@ class MyCart extends Component {
                 <div className="ui right floated small primary labeled icon button">
                   <Icon className="shopping cart" /> Checkout
                 </div>
-                <div className="ui small button">Continue Shopping</div>
+                <Link to="/allproducts">
+                  <div className="ui small button">Continue Shopping</div>
+                </Link>
                 <div className="ui small  button">Empty Cart</div>
               </th>
             </tr>
@@ -54,6 +61,8 @@ class MyCart extends Component {
       </div>
     )
   }
+
+  handleClick() {}
 }
 
 const mapStateToProps = state => {
@@ -63,7 +72,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    getCartThunk: () => dispatch(getCartThunk())
+    getCartThunk: () => dispatch(getCartThunk()),
+    removeFromCartThunk: id => dispatch(removeFromCartThunk(id))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MyCart)
