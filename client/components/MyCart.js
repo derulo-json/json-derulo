@@ -35,8 +35,10 @@ class MyCart extends Component {
                     </Button>
                   </td>
                   <td>
-                    {product.name}
-                    <img id="cartIMG" src={product.imageUrl} width="92px" />
+                    <Link to={`/AllProducts/${product.id}`}>
+                      <div>{product.name}</div>
+                      <img id="cartIMG" src={product.imageUrl} width="92px" />
+                    </Link>
                   </td>
                   <td>{product.cart.quantity}</td>
                   <td>{product.price}</td>
