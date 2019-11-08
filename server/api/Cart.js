@@ -13,10 +13,9 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
   try {
-    const cart = await Cart.findAll({where: {id: req.params.id}})
-    res.json(cart)
+    await Cart.destroy({where: {productId: req.params.id}})
   } catch (error) {
     next(error)
   }
