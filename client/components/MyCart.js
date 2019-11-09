@@ -12,7 +12,11 @@ class MyCart extends Component {
   componentDidMount() {
     this.props.getCartThunk()
   }
-
+  handleClick(e, product) {
+    e.preventDefault()
+    this.props.removeFromCartThunk(product.id)
+    this.props.getCartThunk()
+  }
   render() {
     return (
       <div>
@@ -30,7 +34,10 @@ class MyCart extends Component {
               this.props.cart.cart.products.map(product => (
                 <tr key={product.id}>
                   <td>
-                    <Button onClick={this.handleClick(product.id)} color="teal">
+                    <Button
+                      onClick={e => this.handleClick(e, product)}
+                      color="teal"
+                    >
                       <Icon trash="trash" name="trash" />
                     </Button>
                   </td>
@@ -63,8 +70,6 @@ class MyCart extends Component {
       </div>
     )
   }
-
-  handleClick() {}
 }
 
 const mapStateToProps = state => {

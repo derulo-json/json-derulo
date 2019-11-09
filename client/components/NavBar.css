@@ -46,3 +46,7 @@
   position: relative;
   left: 12px;
 }
+
+img#AllProducts {
+  width: 200px;
+}
