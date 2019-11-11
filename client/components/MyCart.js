@@ -5,6 +5,8 @@ import {
   plusOneThunk,
   minusOneThunk
 } from '../store/CartReducer'
+import {auth} from '../store/user'
+
 import {connect} from 'react-redux'
 import {Icon, Button} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
@@ -12,44 +14,133 @@ import {Link} from 'react-router-dom'
 class MyCart extends Component {
   constructor() {
     super()
+    this.state = {
+      localCart: JSON.parse(localStorage.getItem('cart'))
+    }
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
     this.props.getCartThunk()
+    if (this.state.localCart === null) {
+      this.setState({
+        localCart: []
+      })
+    }
+  }
+  //delete button
+  async handleClick(e, product) {
+    e.preventDefault()
+    const localCart = this.state.localCart
+    if (this.props.user) {
+      await this.props.removeFromCartThunk(product.id)
+      this.props.getCartThunk()
+    } else {
+      for (let i = 0; i < this.state.localCart.length; i++) {
+        if (this.state.localCart[i].id === product.id) {
+          console.log('i went through and was cut')
+          console.log(localCart)
+          this.setState({
+            localCart: localCart.splice(i, 1)
+          })
+          localStorage.setItem('cart', JSON.stringify(this.state.localCart))
+        }
+      }
+    }
+  }
+  async handlePlus(e, product) {
+    e.preventDefault()
+    await this.props.plusOneThunk(product)
+    this.props.getCartThunk()
+    console.log(product.cart.quantity)
   }
 
-  handleClick(e, product) {
+  async handleMinus(e, product) {
     e.preventDefault()
-    this.props.removeFromCartThunk(product.id)
-    this.props.getCartThunk()
-  }
-  handlePlus(e, product) {
-    e.preventDefault()
-    this.props.plusOneThunk(product)
-    this.props.getCartThunk()
-  }
-
-  handleMinus(e, product) {
-    e.preventDefault()
-    this.props.minusOneThunk(product)
+    await this.props.minusOneThunk(product)
     this.props.getCartThunk()
   }
 
   render() {
+    const howMany = 1
     return (
       <div>
-        <table className="ui compact celled definition table">
-          <thead>
-            <tr>
-              <th width="1%" />
-              <th>Product</th>
-              <th>Quantity</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.cart.cart &&
-              this.props.cart.cart.products.map(product => (
+        {this.props.user ? (
+          <table className="ui compact celled definition table">
+            <thead>
+              <tr>
+                <th width="1%" />
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.cart.cart &&
+                this.props.cart.cart.products.map(product => (
+                  <tr key={product.id}>
+                    <td>
+                      <Button
+                        onClick={e => this.handleClick(e, product)}
+                        color="teal"
+                      >
+                        <Icon trash="trash" name="trash" />
+                      </Button>
+                    </td>
+                    <td>
+                      <Link to={`/AllProducts/${product.id}`}>
+                        <div>{product.name}</div>
+                        <img id="cartIMG" src={product.imageUrl} width="92px" />
+                      </Link>
+                    </td>
+                    <td>
+                      <Button onClick={e => this.handlePlus(e, product)}>
+                        <Icon name="plus square outline" />
+                      </Button>
+                      {product.cart.quantity}
+                      <Button onClick={e => this.handleMinus(e, product)}>
+                        <Icon name="minus square outline" />
+                      </Button>
+                    </td>
+                    <td>${product.price / 100}</td>
+                  </tr>
+                ))}
+            </tbody>
+            <tfoot className="full-width">
+              <tr>
+                <th />
+                <th colSpan="4">
+                  <div
+                    onClick={this.handleCheckout}
+                    className="ui right floated small primary labeled icon button"
+                  >
+                    <Icon className="shopping cart" /> Checkout
+                  </div>
+                  <Link to="/allproducts">
+                    <div className="ui small button">Continue Shopping</div>
+                  </Link>
+                  <div
+                    onClick={this.handleClearCart}
+                    className="ui small  button"
+                  >
+                    Empty Cart
+                  </div>
+                </th>
+              </tr>
+            </tfoot>
+          </table>
+        ) : (
+          //Loads if the local cart is empty
+          <table className="ui compact celled definition table">
+            <thead>
+              <tr>
+                <th width="1%" />
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.localCart.map(product => (
                 <tr key={product.id}>
                   <td>
                     <Button
@@ -66,7 +157,7 @@ class MyCart extends Component {
                     </Link>
                   </td>
                   <td>
-                    {product.cart.quantity}
+                    {howMany}
                     <Button onClick={e => this.handlePlus(e, product)}>
                       <Icon name="plus square outline" />
                     </Button>
@@ -77,30 +168,31 @@ class MyCart extends Component {
                   <td>${product.price / 100}</td>
                 </tr>
               ))}
-          </tbody>
-          <tfoot className="full-width">
-            <tr>
-              <th />
-              <th colSpan="4">
-                <div
-                  onClick={this.handleCheckout}
-                  className="ui right floated small primary labeled icon button"
-                >
-                  <Icon className="shopping cart" /> Checkout
-                </div>
-                <Link to="/allproducts">
-                  <div className="ui small button">Continue Shopping</div>
-                </Link>
-                <div
-                  onClick={this.handleClearCart}
-                  className="ui small  button"
-                >
-                  Empty Cart
-                </div>
-              </th>
-            </tr>
-          </tfoot>
-        </table>
+            </tbody>
+            <tfoot className="full-width">
+              <tr>
+                <th />
+                <th colSpan="4">
+                  <div
+                    onClick={this.handleCheckout}
+                    className="ui right floated small primary labeled icon button"
+                  >
+                    <Icon className="shopping cart" /> Checkout
+                  </div>
+                  <Link to="/allproducts">
+                    <div className="ui small button">Continue Shopping</div>
+                  </Link>
+                  <div
+                    onClick={this.handleClearCart}
+                    className="ui small  button"
+                  >
+                    Empty Cart
+                  </div>
+                </th>
+              </tr>
+            </tfoot>
+          </table>
+        )}
       </div>
     )
   }
@@ -108,12 +200,14 @@ class MyCart extends Component {
 
 const mapStateToProps = state => {
   return {
-    cart: state.cart
+    cart: state.cart,
+    user: state.user
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
     getCartThunk: () => dispatch(getCartThunk()),
+    auth: () => dispatch(auth()),
     removeFromCartThunk: id => dispatch(removeFromCartThunk(id)),
     plusOneThunk: product => dispatch(plusOneThunk(product)),
     minusOneThunk: product => dispatch(minusOneThunk(product))

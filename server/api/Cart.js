@@ -61,6 +61,7 @@ router.put('/plus/:id', async (req, res, next) => {
     await cart.update({
       quantity: cart.quantity + 1
     })
+    res.send(cart.findAll())
   } catch (error) {
     next(error)
   }
@@ -74,6 +75,7 @@ router.put('/minus/:id', async (req, res, next) => {
     await cart.update({
       quantity: cart.quantity - 1
     })
+    res.send(cart.findAll())
   } catch (error) {
     next(error)
   }
