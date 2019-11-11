@@ -1,5 +1,10 @@
 import React, {Component} from 'react'
-import {getCartThunk, removeFromCartThunk} from '../store/CartReducer'
+import {
+  getCartThunk,
+  removeFromCartThunk,
+  plusOneThunk,
+  minusOneThunk
+} from '../store/CartReducer'
 import {connect} from 'react-redux'
 import {Icon, Button} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
@@ -12,11 +17,23 @@ class MyCart extends Component {
   componentDidMount() {
     this.props.getCartThunk()
   }
+
   handleClick(e, product) {
     e.preventDefault()
     this.props.removeFromCartThunk(product.id)
     this.props.getCartThunk()
   }
+  handlePlus(e, product) {
+    e.preventDefault()
+    this.props.plusOneThunk(product)
+  }
+
+  handleMinus(e, product) {
+    e.preventDefault()
+    this.props.minusOneThunk(product)
+    this.props.getCartThunk()
+  }
+
   render() {
     return (
       <div>
@@ -47,7 +64,15 @@ class MyCart extends Component {
                       <img id="cartIMG" src={product.imageUrl} width="92px" />
                     </Link>
                   </td>
-                  <td>{product.cart.quantity}</td>
+                  <td>
+                    {product.cart.quantity}
+                    <Button onClick={e => this.handlePlus(e, product)}>
+                      <Icon name="plus square outline" />
+                    </Button>
+                    <Button onClick={e => this.handleMinus(e, product)}>
+                      <Icon name="minus square outline" />
+                    </Button>
+                  </td>
                   <td>{product.price}</td>
                 </tr>
               ))}
@@ -80,7 +105,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getCartThunk: () => dispatch(getCartThunk()),
-    removeFromCartThunk: id => dispatch(removeFromCartThunk(id))
+    removeFromCartThunk: id => dispatch(removeFromCartThunk(id)),
+    plusOneThunk: product => dispatch(plusOneThunk(product)),
+    minusOneThunk: product => dispatch(minusOneThunk(product))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MyCart)

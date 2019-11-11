@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {gotProductThunk} from '../store/singleproduct'
-import {addToCartThunk} from '../store/CartReducer'
+import {addToCartThunk, getCart} from '../store/CartReducer'
+import {Button, Popup} from 'semantic-ui-react'
 
 class SingleProduct extends Component {
   constructor() {
@@ -29,14 +30,23 @@ class SingleProduct extends Component {
           <div>{singleProduct.name}</div>
           <img src={singleProduct.imageUrl} />
           <div>{singleProduct.description}</div>
-          <div
-            onClick={this.handleClick}
-            className="ui animated fade button"
-            tabIndex="0"
-          >
-            <div className="visible content">Add to Cart!</div>
-            <div className="hidden content">${singleProduct.price / 100}</div>
-          </div>
+          <Popup
+            content="Added to cart!"
+            on="click"
+            trigger={
+              <Button
+                onClick={this.handleClick}
+                className="ui animated fade button"
+                tabIndex="0"
+              >
+                <div className="visible content">Add to Cart!</div>
+                <div className="hidden content">
+                  ${singleProduct.price / 100}
+                </div>
+                <span className="popuptext" id="myPopup" />
+              </Button>
+            }
+          />
         </div>
       </div>
     )
@@ -55,7 +65,6 @@ class SingleProduct extends Component {
     console.log('user id', this.props.user.id)
     console.log('singleproduct', this.props.singleProduct)
     this.props.addToCartThunk(this.props.user.id, this.props.singleProduct)
-    console.log(this.state.cart)
   }
 }
 
