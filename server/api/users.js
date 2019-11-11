@@ -2,21 +2,26 @@ const router = require('express').Router()
 const {User, Order, Cart} = require('../db/models')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
-  try {
-    const users = await User.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['id', 'email']
-    })
-    res.json(users)
-  } catch (error) {
-    next(error)
-  }
-})
+// router.get('/', async (req, res, next) => {
+//   try {
+//     const users = await User.findAll({
+//       // explicitly select only the id and email fields - even though
+//       // users' passwords are encrypted, it won't help if we just
+//       // send everything to anyone who asks!
+//       attributes: ['id', 'email']
+//     })
+//     res.json(users)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
-router.post('/:userId/cart', async (req, res, next) => {
+const loggedIn = (req, res, next) => {
+  if (req.user) next()
+  else next('Forbidden')
+}
+
+router.post('/:userId/cart', loggedIn, async (req, res, next) => {
   try {
     const [orderRow, orderRowCreated] = await Order.findOrCreate({
       where: {
