@@ -138,34 +138,35 @@ class MyCart extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.localCart.map(product => (
-                <tr key={product.id}>
-                  <td>
-                    <Button
-                      onClick={e => this.handleClick(e, product)}
-                      color="teal"
-                    >
-                      <Icon trash="trash" name="trash" />
-                    </Button>
-                  </td>
-                  <td>
-                    <Link to={`/AllProducts/${product.id}`}>
-                      <div>{product.name}</div>
-                      <img id="cartIMG" src={product.imageUrl} width="92px" />
-                    </Link>
-                  </td>
-                  <td>
-                    {howMany}
-                    <Button onClick={e => this.handlePlus(e, product)}>
-                      <Icon name="plus square outline" />
-                    </Button>
-                    <Button onClick={e => this.handleMinus(e, product)}>
-                      <Icon name="minus square outline" />
-                    </Button>
-                  </td>
-                  <td>${product.price / 100}</td>
-                </tr>
-              ))}
+              {this.state.localCart &&
+                this.state.localCart.map(product => (
+                  <tr key={product.id}>
+                    <td>
+                      <Button
+                        onClick={e => this.handleClick(e, product)}
+                        color="teal"
+                      >
+                        <Icon trash="trash" name="trash" />
+                      </Button>
+                    </td>
+                    <td>
+                      <Link to={`/AllProducts/${product.id}`}>
+                        <div>{product.name}</div>
+                        <img id="cartIMG" src={product.imageUrl} width="92px" />
+                      </Link>
+                    </td>
+                    <td>
+                      {howMany}
+                      <Button onClick={e => this.handlePlus(e, product)}>
+                        <Icon name="plus square outline" />
+                      </Button>
+                      <Button onClick={e => this.handleMinus(e, product)}>
+                        <Icon name="minus square outline" />
+                      </Button>
+                    </td>
+                    <td>${product.price / 100}</td>
+                  </tr>
+                ))}
             </tbody>
             <tfoot className="full-width">
               <tr>
