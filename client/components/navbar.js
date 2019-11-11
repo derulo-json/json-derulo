@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
-import {getCartThunk} from '../store/CartReducer'
+import {getCartThunk} from '../store/cart'
 import {Icon} from 'semantic-ui-react'
 import './NavBar.css'
 
