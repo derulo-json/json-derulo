@@ -1,7 +1,12 @@
 const router = require('express').Router()
 const {Cart, Order, Product} = require('../db/models')
 
-router.get('/', async (req, res, next) => {
+const loggedIn = (req, res, next) => {
+  if (req.user) next()
+  else next('Forbidden')
+}
+
+router.get('/', loggedIn, async (req, res, next) => {
   try {
     const cart = await Order.findOne({
       where: {userId: req.session.passport.user},
@@ -13,7 +18,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', loggedIn, async (req, res, next) => {
   try {
     const cart = await Cart.findOne({
       where: {productId: req.params.id}
@@ -23,18 +28,7 @@ router.get('/:id', async (req, res, next) => {
     next(error)
   }
 })
-router.get('/plus/:id', async (req, res, next) => {
-  try {
-    const cart = await Cart.findOne({
-      where: {productId: req.params.id}
-    })
-    res.json(cart)
-  } catch (error) {
-    next(error)
-  }
-})
-
-router.get('/minus/:id', async (req, res, next) => {
+router.get('/plus/:id', loggedIn, async (req, res, next) => {
   try {
     const cart = await Cart.findOne({
       where: {productId: req.params.id}
@@ -45,7 +39,18 @@ router.get('/minus/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.get('/minus/:id', loggedIn, async (req, res, next) => {
+  try {
+    const cart = await Cart.findOne({
+      where: {productId: req.params.id}
+    })
+    res.json(cart)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:id', loggedIn, async (req, res, next) => {
   try {
     await Cart.destroy({where: {productId: req.params.id}})
   } catch (error) {
@@ -53,7 +58,7 @@ router.delete('/:id', async (req, res, next) => {
   }
 })
 
-router.put('/plus/:id', async (req, res, next) => {
+router.put('/plus/:id', loggedIn, async (req, res, next) => {
   try {
     const cart = await Cart.findOne({
       where: {productId: req.params.id}
@@ -66,7 +71,7 @@ router.put('/plus/:id', async (req, res, next) => {
   }
 })
 
-router.put('/minus/:id', async (req, res, next) => {
+router.put('/minus/:id', loggedIn, async (req, res, next) => {
   try {
     const cart = await Cart.findOne({
       where: {productId: req.params.id}
