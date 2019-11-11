@@ -4,7 +4,7 @@ import {
   removeFromCartThunk,
   plusOneThunk,
   minusOneThunk
-} from '../store/CartReducer'
+} from '../store/cart'
 import {connect} from 'react-redux'
 import {Icon, Button} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
