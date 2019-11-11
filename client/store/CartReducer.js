@@ -8,10 +8,20 @@ import initialState from './index'
 const ADDED_TO_CART = 'ADDED_TO_CART'
 const GET_CART = 'GET_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
-
+const PLUS_ONE = 'PLUS_ONE'
+const MINUS_ONE = 'MINUS_ONE'
 /**
  * ACTION CREATORS
  */
+
+export const plusOne = product => {
+  return {type: PLUS_ONE, product}
+}
+
+export const minusOne = product => {
+  return {type: MINUS_ONE, product}
+}
+
 export const removeFromCart = item => {
   return {type: REMOVE_FROM_CART, item}
 }
@@ -27,10 +37,32 @@ export const getCart = cart => {
  * THUNK CREATORS
  */
 
+export function plusOneThunk(product) {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(`/api/cart/plus/${product.id}`)
+      dispatch(plusOne(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function minusOneThunk(product) {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(`/api/cart/minus/${product.id}`)
+      dispatch(minusOne(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 export function removeFromCartThunk(id) {
   return async dispatch => {
     try {
-      const {data} = await axios.delete('/api/cart/')
+      const {data} = await axios.delete(`/api/cart/${id}`)
       dispatch(removeFromCart(data))
     } catch (error) {
       console.log(error)
@@ -69,6 +101,10 @@ export default function(state = {}, action) {
       return {...state, cart: action.cart}
     case REMOVE_FROM_CART:
       return {}
+    case PLUS_ONE:
+      return action.product
+    case MINUS_ONE:
+      return action.product
     default:
       return state
   }

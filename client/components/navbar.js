@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import {getCartThunk} from '../store/CartReducer'
+import {Icon} from 'semantic-ui-react'
 import './NavBar.css'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, cart}) => (
   <div>
     <nav>
       <div className="ui inverted segment">
@@ -25,7 +27,18 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             </div>
           )}
           <Link to="/home">Home</Link>
-          <Link to="/cart">Cart</Link>
+          <Link id="Cart-Length" to="/cart">
+            {cart ? (
+              <div>
+                <div id="cart-count">{cart}</div>
+                <div>
+                  <Icon name="shopping cart" />
+                </div>
+              </div>
+            ) : (
+              <Icon name="shopping cart" />
+            )}
+          </Link>
           <div className="dropdown">
             <button background-color="unset" type="button" className="dropbtn">
               Shop
@@ -47,9 +60,22 @@ const Navbar = ({handleClick, isLoggedIn}) => (
 /**
  * CONTAINER
  */
+function cartCounter(cart) {
+  if (cart) {
+    if (cart.products) {
+      return cart.products.length
+    } else {
+      return cart
+    }
+  } else {
+    return console.log(cart)
+  }
+}
+
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cart: cartCounter(state.cart.cart)
   }
 }
 
@@ -57,8 +83,8 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
-      localStorage.clear()
-    }
+    },
+    getCartThunk: () => dispatch(getCartThunk())
   }
 }
 
