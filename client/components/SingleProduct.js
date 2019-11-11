@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {gotProductThunk} from '../store/singleproduct'
 import {addToCartThunk, getCart} from '../store/CartReducer'
 import {Button, Popup} from 'semantic-ui-react'
+import PropTypes from 'prop-types'
 
 class SingleProduct extends Component {
   constructor() {
@@ -59,12 +60,13 @@ class SingleProduct extends Component {
 
   handleClick(e) {
     e.preventDefault()
-    console.log(this.state.cart)
-    this.state.cart.push(this.props.singleProduct)
-    this.saveToLocal()
-    console.log('user id', this.props.user.id)
-    console.log('singleproduct', this.props.singleProduct)
-    this.props.addToCartThunk(this.props.user.id, this.props.singleProduct)
+    if (this.props.user.id) {
+      this.props.addToCartThunk(this.props.user.id, this.props.singleProduct)
+    } else {
+      this.state.cart.push(this.props.singleProduct)
+      this.saveToLocal()
+      console.log(this.state.cart)
+    }
   }
 }
 

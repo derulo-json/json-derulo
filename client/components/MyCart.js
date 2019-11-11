@@ -26,6 +26,7 @@ class MyCart extends Component {
   handlePlus(e, product) {
     e.preventDefault()
     this.props.plusOneThunk(product)
+    this.props.getCartThunk()
   }
 
   handleMinus(e, product) {
@@ -73,7 +74,7 @@ class MyCart extends Component {
                       <Icon name="minus square outline" />
                     </Button>
                   </td>
-                  <td>{product.price}</td>
+                  <td>${product.price / 100}</td>
                 </tr>
               ))}
           </tbody>
@@ -81,13 +82,21 @@ class MyCart extends Component {
             <tr>
               <th />
               <th colSpan="4">
-                <div className="ui right floated small primary labeled icon button">
+                <div
+                  onClick={this.handleCheckout}
+                  className="ui right floated small primary labeled icon button"
+                >
                   <Icon className="shopping cart" /> Checkout
                 </div>
                 <Link to="/allproducts">
                   <div className="ui small button">Continue Shopping</div>
                 </Link>
-                <div className="ui small  button">Empty Cart</div>
+                <div
+                  onClick={this.handleClearCart}
+                  className="ui small  button"
+                >
+                  Empty Cart
+                </div>
               </th>
             </tr>
           </tfoot>
