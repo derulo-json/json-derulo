@@ -1,5 +1,10 @@
 import React, {Component} from 'react'
-import {getCartThunk, removeFromCartThunk} from '../store/CartReducer'
+import {
+  getCartThunk,
+  removeFromCartThunk,
+  plusOneThunk,
+  minusOneThunk
+} from '../store/CartReducer'
 import {connect} from 'react-redux'
 import {Icon, Button} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
@@ -10,6 +15,23 @@ class MyCart extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
+    this.props.getCartThunk()
+  }
+
+  handleClick(e, product) {
+    e.preventDefault()
+    this.props.removeFromCartThunk(product.id)
+    this.props.getCartThunk()
+  }
+  handlePlus(e, product) {
+    e.preventDefault()
+    this.props.plusOneThunk(product)
+    this.props.getCartThunk()
+  }
+
+  handleMinus(e, product) {
+    e.preventDefault()
+    this.props.minusOneThunk(product)
     this.props.getCartThunk()
   }
 
@@ -30,7 +52,10 @@ class MyCart extends Component {
               this.props.cart.cart.products.map(product => (
                 <tr key={product.id}>
                   <td>
-                    <Button onClick={this.handleClick(product.id)} color="teal">
+                    <Button
+                      onClick={e => this.handleClick(e, product)}
+                      color="teal"
+                    >
                       <Icon trash="trash" name="trash" />
                     </Button>
                   </td>
@@ -40,8 +65,16 @@ class MyCart extends Component {
                       <img id="cartIMG" src={product.imageUrl} width="92px" />
                     </Link>
                   </td>
-                  <td>{product.cart.quantity}</td>
-                  <td>{product.price}</td>
+                  <td>
+                    {product.cart.quantity}
+                    <Button onClick={e => this.handlePlus(e, product)}>
+                      <Icon name="plus square outline" />
+                    </Button>
+                    <Button onClick={e => this.handleMinus(e, product)}>
+                      <Icon name="minus square outline" />
+                    </Button>
+                  </td>
+                  <td>${product.price / 100}</td>
                 </tr>
               ))}
           </tbody>
@@ -49,13 +82,21 @@ class MyCart extends Component {
             <tr>
               <th />
               <th colSpan="4">
-                <div className="ui right floated small primary labeled icon button">
+                <div
+                  onClick={this.handleCheckout}
+                  className="ui right floated small primary labeled icon button"
+                >
                   <Icon className="shopping cart" /> Checkout
                 </div>
                 <Link to="/allproducts">
                   <div className="ui small button">Continue Shopping</div>
                 </Link>
-                <div className="ui small  button">Empty Cart</div>
+                <div
+                  onClick={this.handleClearCart}
+                  className="ui small  button"
+                >
+                  Empty Cart
+                </div>
               </th>
             </tr>
           </tfoot>
@@ -63,8 +104,6 @@ class MyCart extends Component {
       </div>
     )
   }
-
-  handleClick() {}
 }
 
 const mapStateToProps = state => {
@@ -75,7 +114,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getCartThunk: () => dispatch(getCartThunk()),
-    removeFromCartThunk: id => dispatch(removeFromCartThunk(id))
+    removeFromCartThunk: id => dispatch(removeFromCartThunk(id)),
+    plusOneThunk: product => dispatch(plusOneThunk(product)),
+    minusOneThunk: product => dispatch(minusOneThunk(product))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MyCart)
