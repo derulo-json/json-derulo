@@ -22,6 +22,10 @@ class SingleProduct extends Component {
       })
     }
   }
+  //delete later
+  componentWillUnmount() {
+    console.log(JSON.parse(localStorage.getItem('cart')))
+  }
 
   render() {
     const singleProduct = this.props.singleProduct
@@ -63,9 +67,9 @@ class SingleProduct extends Component {
     if (this.props.user.id) {
       this.props.addToCartThunk(this.props.user.id, this.props.singleProduct)
     } else {
+      console.log(this.state.cart)
       this.state.cart.push(this.props.singleProduct)
       this.saveToLocal()
-      console.log(this.state.cart)
     }
   }
 }
