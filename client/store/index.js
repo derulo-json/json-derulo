@@ -4,8 +4,8 @@ import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import userReducer from './user'
 import productsReducer from './products'
-import singleProductReducer from './singleproduct'
-import cartReducer from './CartReducer'
+import singleProductReducer from './singleProduct'
+import cartReducer from './cart'
 
 // const initialState = {
 //   products: [],
