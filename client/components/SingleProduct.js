@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {gotProductThunk} from '../store/singleproduct'
-import {addToCartThunk, getCart} from '../store/CartReducer'
+import {gotProductThunk} from '../store/singleProduct'
+import {addToCartThunk, getCart} from '../store/cart'
 import {Button, Popup} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 

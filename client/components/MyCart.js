@@ -4,9 +4,7 @@ import {
   removeFromCartThunk,
   plusOneThunk,
   minusOneThunk
-} from '../store/CartReducer'
-import {auth} from '../store/user'
-
+} from '../store/cart'
 import {connect} from 'react-redux'
 import {Icon, Button} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
@@ -64,7 +62,7 @@ class MyCart extends Component {
     const howMany = 1
     return (
       <div>
-        {this.props.user ? (
+        {this.props.user.id ? (
           <table className="ui compact celled definition table">
             <thead>
               <tr>
