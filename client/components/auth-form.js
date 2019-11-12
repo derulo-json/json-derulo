@@ -48,6 +48,7 @@ const AuthForm = props => {
               iconPosition="left"
               placeholder="Password"
               type="password"
+              required
             />
             <Button type="submit" color="teal" fluid size="large">
               {displayName}

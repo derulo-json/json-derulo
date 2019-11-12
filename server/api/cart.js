@@ -18,7 +18,19 @@ router.get('/', async (req, res, next) => {
   try {
     const cart = await Order.findOne({
       where: {userId: req.session.passport.user},
-      include: [{model: Product}]
+      include: [
+        {
+          model: Product,
+          attributes: [
+            'id',
+            'name',
+            'imageUrl',
+            'price',
+            'category',
+            'description'
+          ]
+        }
+      ]
     })
     res.json(cart)
   } catch (error) {
@@ -91,6 +103,20 @@ router.put('/minus/:id', loggedIn, getOrderId, async (req, res, next) => {
       quantity: cart.quantity - 1
     })
     res.send(cart.findAll())
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/checkout', loggedIn, getOrderId, async (req, res, next) => {
+  try {
+    const checkout = await Order.findOne({
+      where: {id: req.body.orderRowId}
+    })
+    await checkout.update({
+      purchased: true
+    })
+    res.send(checkout)
   } catch (error) {
     next(error)
   }
