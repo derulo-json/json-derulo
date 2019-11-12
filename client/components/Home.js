@@ -20,7 +20,7 @@ import {
 // Heads up!
 // We using React Static to prerender our docs with server side rendering, this is a quite simple solution.
 // For more advanced usage please check Responsive docs under the "Usage" section.
-const getWidth = () => {
+export const getWidth = () => {
   const isSSR = typeof window === 'undefined'
 
   return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth
@@ -39,8 +39,7 @@ const HomepageHeading = ({mobile}) => (
       style={{
         fontSize: mobile ? '2em' : '4em',
         fontWeight: 'normal',
-        marginBottom: 0,
-        marginTop: mobile ? '1.5em' : '3em'
+        marginBottom: 0
       }}
     />
     <img
@@ -57,10 +56,12 @@ const HomepageHeading = ({mobile}) => (
         marginTop: mobile ? '0.5em' : '1.5em'
       }}
     />
-    <Button primary size="huge">
-      Get Started
-      <Icon name="right arrow" />
-    </Button>
+    <Link to="/allproducts">
+      <Button primary size="huge">
+        Get Started
+        <Icon name="right arrow" />
+      </Button>
+    </Link>
   </Container>
 )
 
@@ -72,7 +73,7 @@ HomepageHeading.propTypes = {
  * Neither Semantic UI nor Semantic UI React offer a responsive navbar, however, it can be implemented easily.
  * It can be more complicated, but you can create really flexible markup.
  */
-class DesktopContainer extends Component {
+export class DesktopContainer extends Component {
   state = {}
 
   hideFixedMenu = () => this.setState({fixed: false})
@@ -84,6 +85,8 @@ class DesktopContainer extends Component {
 
     return (
       <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
+        {console.log(this.state)}
+
         <Visibility
           once={false}
           onBottomPassed={this.showFixedMenu}
@@ -101,11 +104,67 @@ class DesktopContainer extends Component {
               pointing={!fixed}
               secondary={!fixed}
               size="large"
-            />
+            >
+              <Container>
+                <Menu.Item as="a">
+                  <button
+                    background-color="unset"
+                    type="button"
+                    className="dropbtn"
+                  >
+                    <Link to="/home">Home</Link>
+                  </button>
+                </Menu.Item>
+                <Menu.Item as="a">
+                  <div className="dropdown">
+                    <button
+                      background-color="unset"
+                      type="button"
+                      className="dropbtn"
+                    >
+                      Shop
+                    </button>
+                    <div className="dropdown-content">
+                      <Link to="/allproducts">All Products</Link>
+                      <Link to="/apparel">Apparel </Link>
+                      <Link to="/music">Music</Link>
+                      <Link to="/treasures">Treasures</Link>
+                      <Link to="/cart">Cart</Link>
+                    </div>
+                  </div>
+                </Menu.Item>
+
+                <Menu.Item as="a">
+                  <button
+                    background-color="unset"
+                    type="button"
+                    className="dropbtn"
+                  >
+                    <Link to="/cart">Cart</Link>
+                  </button>
+                </Menu.Item>
+                <Menu.Item position="right">
+                  <Link to="/login">
+                    <Button as="a" inverted={!fixed}>
+                      Log in
+                    </Button>
+                  </Link>
+                  <Link to="/signup">
+                    <Button
+                      as="a"
+                      inverted={!fixed}
+                      primary={fixed}
+                      style={{marginLeft: '0.5em'}}
+                    >
+                      Sign Up
+                    </Button>
+                  </Link>
+                </Menu.Item>
+              </Container>
+            </Menu>
             <HomepageHeading />
           </Segment>
         </Visibility>
-
         {children}
       </Responsive>
     )
@@ -254,7 +313,7 @@ const HomepageLayout = () => (
                 avatar
                 src="https://ca.slack-edge.com/T024FPYBQ-UNB03DR60-8d39434f4b9a-512"
               />
-              <b>Nan</b> Chief Fun Officer Acme Toys
+              <b>Collin</b> Chief Fun Officer Acme Toys
             </p>
           </Grid.Column>
         </Grid.Row>
