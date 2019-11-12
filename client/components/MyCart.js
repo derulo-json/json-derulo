@@ -12,33 +12,43 @@ import {Link} from 'react-router-dom'
 class MyCart extends Component {
   constructor() {
     super()
-    this.state = {
-      localCart: JSON.parse(localStorage.getItem('cart'))
+    if (JSON.parse(localStorage.getItem('cart'))) {
+      this.state = {
+        localCart: this.fixLocalCart(JSON.parse(localStorage.getItem('cart'))),
+        arr: null
+      }
+    } else {
+      this.state = {
+        localCart: [],
+        arr: null
+      }
     }
+
     this.handleClick = this.handleClick.bind(this)
+    this.handleClearCart = this.handleClearCart.bind(this)
   }
+
   componentDidMount() {
+    console.log(this.state.localCart)
+    console.log(JSON.parse(localStorage.getItem('cart')))
+    this.fixLocalCart(this.state.localCart)
     this.props.getCartThunk()
-    if (this.state.localCart === null) {
-      this.setState({
-        localCart: []
-      })
-    }
   }
   //delete button
-  async handleClick(e, product) {
+  handleClick(e, product) {
     e.preventDefault()
     const localCart = this.state.localCart
-    if (this.props.user) {
-      await this.props.removeFromCartThunk(product.id)
+    if (this.props.user.id) {
+      console.log('trying to delete')
+      this.props.removeFromCartThunk(product.id)
+      this.props.getCartThunk()
       this.props.getCartThunk()
     } else {
       for (let i = 0; i < this.state.localCart.length; i++) {
         if (this.state.localCart[i].id === product.id) {
-          console.log('i went through and was cut')
-          console.log(localCart)
+          localCart.splice(i, 1)
           this.setState({
-            localCart: localCart.splice(i, 1)
+            localCart: localCart
           })
           localStorage.setItem('cart', JSON.stringify(this.state.localCart))
         }
@@ -47,9 +57,18 @@ class MyCart extends Component {
   }
   async handlePlus(e, product) {
     e.preventDefault()
-    await this.props.plusOneThunk(product)
-    this.props.getCartThunk()
-    console.log(product.cart.quantity)
+    if (this.props.user.id) {
+      await this.props.plusOneThunk(product)
+      this.props.getCartThunk()
+      console.log(product.cart.quantity)
+    } else {
+      let arr = JSON.parse(localStorage.getItem('cart'))
+      arr.push(product)
+      localStorage.setItem('cart', JSON.stringify(arr))
+      this.setState({
+        localCart: this.state.localCart
+      })
+    }
   }
 
   async handleMinus(e, product) {
@@ -58,8 +77,50 @@ class MyCart extends Component {
     this.props.getCartThunk()
   }
 
+  handleQuantity(e, product) {
+    let count = 0
+    this.state.localCart.forEach(element => {
+      if (element === product) {
+        count++
+      }
+      return <div>{count}</div>
+    })
+  }
+
+  handleClearCart(e) {
+    e.preventDefault()
+    this.setState({
+      localCart: []
+    })
+    localStorage.clear()
+  }
+
+  fixLocalCart(arr) {
+    let newArr = arr
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < arr.length; j++) {
+        if (arr[i].id === arr[j].id && i !== j) {
+          newArr.splice(j, 1)
+        }
+      }
+    }
+    this.setState({
+      localCart: newArr
+    })
+    return newArr
+  }
+  displayQuantity(product) {
+    let count = 0
+    let arr = JSON.parse(localStorage.getItem('cart'))
+    for (let i = 0; i < arr.length; i++) {
+      if (product.id === arr[i].id) {
+        count++
+      }
+    }
+    return count
+  }
+
   render() {
-    const howMany = 1
     return (
       <div>
         {this.props.user.id ? (
@@ -127,7 +188,7 @@ class MyCart extends Component {
             </tfoot>
           </table>
         ) : (
-          //Loads if the local cart is empty
+          //Loads if the local cart is full
           <table className="ui compact celled definition table">
             <thead>
               <tr>
@@ -156,7 +217,7 @@ class MyCart extends Component {
                       </Link>
                     </td>
                     <td>
-                      {howMany}
+                      {this.displayQuantity(product)}
                       <Button onClick={e => this.handlePlus(e, product)}>
                         <Icon name="plus square outline" />
                       </Button>
