@@ -58,7 +58,7 @@ const HomepageHeading = ({mobile}) => (
     />
     <Link to="/allproducts">
       <Button primary size="huge">
-        Get Started
+        Get Shopping
         <Icon name="right arrow" />
       </Button>
     </Link>
@@ -264,16 +264,13 @@ const HomepageLayout = () => (
         <Grid.Row>
           <Grid.Column width={8}>
             <Header as="h3" style={{fontSize: '2em'}}>
-              We Have all sorts of Jason Derulo merch
+              Got An Itch For Derulo Merch?
             </Header>
-            <p style={{fontSize: '1.33em'}}>We have all kinds of clothing</p>
+            <p style={{fontSize: '1.33em'}}>We can scratch it for you!</p>
             <Header as="h3" style={{fontSize: '2em'}}>
-              We Make Bananas That Can Dance
+              Got A Thirst For Derulo Shirts?
             </Header>
-            <p style={{fontSize: '1.33em'}}>
-              Yes that's right, you thought it was the stuff of dreams, but now
-              even bananas can enoy bioengineered to enjoy Derulo's music.
-            </p>
+            <p style={{fontSize: '1.33em'}}>We can drown you in tees!</p>
           </Grid.Column>
           <Grid.Column floated="right" width={6}>
             <Image
@@ -298,11 +295,9 @@ const HomepageLayout = () => (
         <Grid.Row textAlign="center">
           <Grid.Column style={{paddingBottom: '5em', paddingTop: '5em'}}>
             <Header as="h3" style={{fontSize: '2em'}}>
-              "What a Company"
+              "What a company!"
             </Header>
-            <p style={{fontSize: '1.33em'}}>
-              That is what they all say about us
-            </p>
+            <p style={{fontSize: '1.33em'}}>-Everyone</p>
           </Grid.Column>
           <Grid.Column style={{paddingBottom: '5em', paddingTop: '5em'}}>
             <Header as="h3" style={{fontSize: '2em'}}>
@@ -313,7 +308,7 @@ const HomepageLayout = () => (
                 avatar
                 src="https://ca.slack-edge.com/T024FPYBQ-UNB03DR60-8d39434f4b9a-512"
               />
-              <b>Collin</b> Chief Fun Officer Acme Toys
+              <b>Colin</b> -Chief Fun Officer at Acme Toys
             </p>
           </Grid.Column>
         </Grid.Row>
@@ -322,16 +317,17 @@ const HomepageLayout = () => (
     <Segment style={{padding: '8em 0em'}} vertical>
       <Container text>
         <Header as="h3" style={{fontSize: '2em'}}>
-          Breaking The Grid, Grabs Your Attention
+          You're At A Derulo Concert. And You're Thinking...
         </Header>
         <p style={{fontSize: '1.33em'}}>
-          Instead of focusing on content creation and hard work, we have learned
-          how to master the art of doing nothing by providing massive amounts of
-          whitespace and generic content that can seem massive, monolithic and
-          worth your attention.
+          What if I could get my hands on that sweaty towel he just lobbed into
+          the wing? What about that water bottle he just crushed? What about the
+          unseen treasures lurking in his trailer? Would my life be better?
+          Would I be happier? That's why we're here. Explore your fantasies.
+          Make them come true...
         </p>
         <Button as="a" size="large">
-          Read More
+          Dive In
         </Button>
         <Divider
           as="h4"
@@ -342,15 +338,15 @@ const HomepageLayout = () => (
           <a href="#">Case Studies</a>
         </Divider>
         <Header as="h3" style={{fontSize: '2em'}}>
-          Did We Tell You About Our Bananas?
+          Why Are You Down Here?
         </Header>
         <p style={{fontSize: '1.33em'}}>
-          Yes I know you probably disregarded the earlier boasts as non-sequitur
-          filler content, but it's really true. It took years of gene splicing
-          and combinatory DNA research, but our bananas can really dance.
+          The goods are up there. You're only here for one thing - and we know
+          it. Jason knows it. Don't be afraid. No one's looking at your screen.
+          Alt/Cmd-Tab away if you must. But we'll be here waiting.
         </p>
         <Button as="a" size="large">
-          I'm Still Quite Interested
+          No Shame
         </Button>
       </Container>
     </Segment>
@@ -361,29 +357,26 @@ const HomepageLayout = () => (
             <Grid.Column width={3}>
               <Header inverted as="h4" content="About" />
               <List link inverted>
-                <List.Item as="a">Sitemap</List.Item>
-                <List.Item as="a">Contact Us</List.Item>
-                <List.Item as="a">Religious Ceremonies</List.Item>
-                <List.Item as="a">Gazebo Plans</List.Item>
+                <List.Item as="a">MMMMMM</List.Item>
+                <List.Item as="a">Whatcha Say?</List.Item>
+                <List.Item as="a">That You Only Meant Well?</List.Item>
+                <List.Item as="a">Well Of Course You Did</List.Item>
               </List>
             </Grid.Column>
             <Grid.Column width={3}>
               <Header inverted as="h4" content="Services" />
               <List link inverted>
-                <List.Item as="a">Banana Pre-Order</List.Item>
-                <List.Item as="a">DNA FAQ</List.Item>
-                <List.Item as="a">How To Access</List.Item>
-                <List.Item as="a">Favorite X-Men</List.Item>
+                <List.Item as="a">Wiggle Wiggle</List.Item>
+                <List.Item as="a">Wiggle Wiggle</List.Item>
+                <List.Item as="a">Wiggle Wiggle</List.Item>
+                <List.Item as="a">Patty Cake</List.Item>
               </List>
             </Grid.Column>
             <Grid.Column width={7}>
               <Header as="h4" inverted>
-                Footer Header
+                Jason Deruloooooo
               </Header>
-              <p>
-                Extra space for a call to action inside the footer that could
-                help re-engage users.
-              </p>
+              <p>Jason Deruloooooooooooo</p>
             </Grid.Column>
           </Grid.Row>
         </Grid>
