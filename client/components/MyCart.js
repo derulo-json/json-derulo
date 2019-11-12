@@ -145,7 +145,6 @@ class MyCart extends Component {
         }
       }
     }
-
     return count
   }
 
