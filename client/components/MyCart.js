@@ -37,7 +37,7 @@ class MyCart extends Component {
     this.props.getCartThunk()
   }
   //delete button
-  async handleClick(e, product) {
+  handleClick(e, product) {
     e.preventDefault()
     const localCart = this.state.localCart
     if (this.props.user.id) {

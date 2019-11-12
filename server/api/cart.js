@@ -10,14 +10,16 @@ const getOrderId = async (req, res, next) => {
   const orderRow = await Order.findOne({
     where: {userId: req.session.passport.user, purchased: false}
   })
-  req.body.orderRowId = orderRow.id
+  if (orderRow) {
+    req.body.orderRowId = orderRow.id
+  }
   next()
 }
 
 router.get('/', async (req, res, next) => {
   try {
     const cart = await Order.findOne({
-      where: {userId: req.session.passport.user},
+      where: {userId: req.session.passport.user, purchased: false},
       include: [
         {
           model: Product,
