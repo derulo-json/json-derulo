@@ -10,6 +10,7 @@ const GET_CART = 'GET_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const PLUS_ONE = 'PLUS_ONE'
 const MINUS_ONE = 'MINUS_ONE'
+const CHECKOUT = 'CHECKOUT'
 /**
  * ACTION CREATORS
  */
@@ -32,6 +33,10 @@ export const addToCart = entireCart => {
 
 export const getCart = cart => {
   return {type: GET_CART, cart}
+}
+
+export const checkout = order => {
+  return {type: CHECKOUT, order}
 }
 /**
  * THUNK CREATORS
@@ -90,6 +95,17 @@ export function getCartThunk() {
   }
 }
 
+export function checkoutThunk() {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put('/api/cart/checkout')
+      dispatch(checkout(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 /**
  * REDUCER
  */
@@ -105,6 +121,8 @@ export default function(state = {}, action) {
       return action.product
     case MINUS_ONE:
       return action.product
+    case CHECKOUT:
+      return action.order
     default:
       return state
   }
