@@ -25,7 +25,8 @@ router.post('/:userId/cart', loggedIn, async (req, res, next) => {
   try {
     const [orderRow, orderRowCreated] = await Order.findOrCreate({
       where: {
-        userId: req.params.userId
+        userId: req.params.userId,
+        purchased: false
       }
     })
     const prodId = req.body.id
