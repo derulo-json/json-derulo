@@ -11,6 +11,7 @@ const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const PLUS_ONE = 'PLUS_ONE'
 const MINUS_ONE = 'MINUS_ONE'
 const CHECKOUT = 'CHECKOUT'
+const UPDATE_INVENTORY = 'UPDATE_INVENTORY'
 /**
  * ACTION CREATORS
  */
@@ -37,6 +38,10 @@ export const getCart = cart => {
 
 export const checkout = order => {
   return {type: CHECKOUT, order}
+}
+
+export const updateInventory = inventory => {
+  return {type: UPDATE_INVENTORY, inventory}
 }
 /**
  * THUNK CREATORS
@@ -100,7 +105,18 @@ export function checkoutThunk() {
   return async dispatch => {
     try {
       const {data} = await axios.put('/api/cart/checkout')
-      dispatch(checkout(data))
+      dispatch(checkout(data.checkout))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function inventoryThunk() {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put('/api/cart/checkout')
+      dispatch(updateInventory(data.updateInventory))
     } catch (error) {
       console.log(error)
     }
@@ -124,6 +140,8 @@ export default function(state = {}, action) {
       return action.product
     case CHECKOUT:
       return action.order
+    case UPDATE_INVENTORY:
+      return action.inventory
     default:
       return state
   }

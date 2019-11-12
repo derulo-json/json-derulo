@@ -4,7 +4,8 @@ import {
   removeFromCartThunk,
   plusOneThunk,
   minusOneThunk,
-  checkoutThunk
+  checkoutThunk,
+  inventoryThunk
 } from '../store/cart'
 import {connect} from 'react-redux'
 import {Icon, Button} from 'semantic-ui-react'
@@ -82,6 +83,7 @@ class MyCart extends Component {
   async handleCheckout(e) {
     e.preventDefault()
     await this.props.checkoutThunk()
+    await this.props.inventoryThunk()
   }
 
   handleQuantity(e, product) {
@@ -281,7 +283,8 @@ const mapDispatchToProps = dispatch => {
     removeFromCartThunk: id => dispatch(removeFromCartThunk(id)),
     plusOneThunk: product => dispatch(plusOneThunk(product)),
     minusOneThunk: product => dispatch(minusOneThunk(product)),
-    checkoutThunk: () => dispatch(checkoutThunk())
+    checkoutThunk: () => dispatch(checkoutThunk()),
+    inventoryThunk: () => dispatch(inventoryThunk())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MyCart)
