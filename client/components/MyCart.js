@@ -3,7 +3,8 @@ import {
   getCartThunk,
   removeFromCartThunk,
   plusOneThunk,
-  minusOneThunk
+  minusOneThunk,
+  checkoutThunk
 } from '../store/cart'
 import {connect} from 'react-redux'
 import {Icon, Button} from 'semantic-ui-react'
@@ -35,7 +36,7 @@ class MyCart extends Component {
     this.props.getCartThunk()
   }
   //delete button
-  handleClick(e, product) {
+  async handleClick(e, product) {
     e.preventDefault()
     const localCart = this.state.localCart
     if (this.props.user.id) {
@@ -75,6 +76,11 @@ class MyCart extends Component {
     e.preventDefault()
     await this.props.minusOneThunk(product)
     this.props.getCartThunk()
+  }
+
+  async handleCheckout(e) {
+    e.preventDefault()
+    await this.props.checkoutThunk()
   }
 
   handleQuantity(e, product) {
@@ -169,7 +175,7 @@ class MyCart extends Component {
                 <th />
                 <th colSpan="4">
                   <div
-                    onClick={this.handleCheckout}
+                    onClick={e => this.handleCheckout(e)}
                     className="ui right floated small primary labeled icon button"
                   >
                     <Icon className="shopping cart" /> Checkout
@@ -234,7 +240,7 @@ class MyCart extends Component {
                 <th />
                 <th colSpan="4">
                   <div
-                    onClick={this.handleCheckout}
+                    onClick={e => this.handleCheckout(e)}
                     className="ui right floated small primary labeled icon button"
                   >
                     <Icon className="shopping cart" /> Checkout
@@ -270,7 +276,8 @@ const mapDispatchToProps = dispatch => {
     auth: () => dispatch(auth()),
     removeFromCartThunk: id => dispatch(removeFromCartThunk(id)),
     plusOneThunk: product => dispatch(plusOneThunk(product)),
-    minusOneThunk: product => dispatch(minusOneThunk(product))
+    minusOneThunk: product => dispatch(minusOneThunk(product)),
+    checkoutThunk: () => dispatch(checkoutThunk())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MyCart)
