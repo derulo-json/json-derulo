@@ -13,7 +13,7 @@ class MyCart extends Component {
   constructor() {
     super()
     this.state = {
-      localCart: JSON.parse(localStorage.getItem('cart'))
+      localCart: this.fixLocalCart(JSON.parse(localStorage.getItem('cart')))
     }
     this.handleClick = this.handleClick.bind(this)
   }
@@ -58,8 +58,29 @@ class MyCart extends Component {
     this.props.getCartThunk()
   }
 
+  handleQuantity(e, product) {
+    let count = 0
+    this.state.localCart.forEach(element => {
+      if (element === product) {
+        count++
+      }
+      return <div>{count}</div>
+    })
+  }
+
+  fixLocalCart(arr) {
+    let newArr = arr
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < arr.length; j++) {
+        if (arr[i].id === arr[j].id && i !== j) {
+          newArr.splice(j, 1)
+        }
+      }
+    }
+    return newArr
+  }
+
   render() {
-    const howMany = 1
     return (
       <div>
         {this.props.user.id ? (
@@ -155,7 +176,7 @@ class MyCart extends Component {
                     </Link>
                   </td>
                   <td>
-                    {howMany}
+                    {this.handleQuantity(product)}
                     <Button onClick={e => this.handlePlus(e, product)}>
                       <Icon name="plus square outline" />
                     </Button>
