@@ -168,7 +168,7 @@ class MyCart extends Component {
                         <Icon name="minus square outline" />
                       </Button>
                     </td>
-                    <td>${product.price / 100}</td>
+                    <td>${product.price * product.cart.quantity / 100}</td>
                   </tr>
                 ))}
             </tbody>
@@ -233,7 +233,9 @@ class MyCart extends Component {
                         <Icon name="minus square outline" />
                       </Button>
                     </td>
-                    <td>${product.price / 100}</td>
+                    <td>
+                      ${product.price * this.displayQuantity(product) / 100}
+                    </td>
                   </tr>
                 ))}
             </tbody>
