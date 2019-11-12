@@ -60,3 +60,10 @@ div#cart-count {
   position: absolute;
   left: 150px;
 }
+
+h1.ui.inverted.header {
+  margin-top: unset;
+}
+a {
+  color: white;
+}
