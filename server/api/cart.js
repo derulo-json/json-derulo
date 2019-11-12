@@ -108,4 +108,18 @@ router.put('/minus/:id', loggedIn, getOrderId, async (req, res, next) => {
   }
 })
 
+router.put('/checkout', loggedIn, getOrderId, async (req, res, next) => {
+  try {
+    const checkout = await Order.findOne({
+      where: {id: req.body.orderRowId}
+    })
+    await checkout.update({
+      purchased: true
+    })
+    res.send(checkout)
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router
