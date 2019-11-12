@@ -82,6 +82,7 @@ export const addToCartThunk = (userId, item) => async dispatch => {
 export function getCartThunk() {
   return async dispatch => {
     try {
+      console.log('getting cart')
       const {data} = await axios.get('/api/cart')
       dispatch(getCart(data))
     } catch (error) {
