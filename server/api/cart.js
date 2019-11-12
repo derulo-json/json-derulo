@@ -118,7 +118,23 @@ router.put('/checkout', loggedIn, getOrderId, async (req, res, next) => {
     await checkout.update({
       purchased: true
     })
-    res.send(checkout)
+
+    const updateInventory = await Cart.findAll({
+      where: {orderId: req.body.orderRowId}
+    })
+
+    updateInventory.forEach(async function(item) {
+      let found = await Product.findOne({
+        where: {id: item.productId}
+      })
+
+      let quantity = found.quantity
+
+      await found.update({
+        quantity: quantity - item.quantity
+      })
+    })
+    res.send({checkout, updateInventory})
   } catch (error) {
     next(error)
   }
