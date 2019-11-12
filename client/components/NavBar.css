@@ -64,3 +64,6 @@ div#cart-count {
 h1.ui.inverted.header {
   margin-top: unset;
 }
+a {
+  color: white;
+}
