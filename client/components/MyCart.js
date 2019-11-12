@@ -63,7 +63,6 @@ class MyCart extends Component {
     if (this.props.user.id) {
       await this.props.plusOneThunk(product)
       this.props.getCartThunk()
-      console.log(product.cart.quantity)
     } else {
       let arr = JSON.parse(localStorage.getItem('cart'))
       arr.push(product)
@@ -76,13 +75,33 @@ class MyCart extends Component {
 
   async handleMinus(e, product) {
     e.preventDefault()
-    await this.props.minusOneThunk(product)
-    this.props.getCartThunk()
+    if (this.props.user.id) {
+      await this.props.minusOneThunk(product)
+      this.props.getCartThunk()
+    } else {
+      let arr = JSON.parse(localStorage.getItem('cart'))
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].id === product.id) {
+          arr.splice(i, 1)
+          break
+        }
+      }
+      localStorage.setItem('cart', JSON.stringify(arr))
+      this.setState({
+        localCart: this.state.localCart
+      })
+    }
   }
 
   async handleCheckout(e) {
     e.preventDefault()
-    await this.props.checkoutThunk()
+    if (this.props.user.id) {
+      await this.props.checkoutThunk()
+    } else {
+      localStorage.clear()
+      this.setState({localCart: []})
+      //use the update inventory thunk
+    }
     await this.props.inventoryThunk()
   }
 
@@ -121,9 +140,11 @@ class MyCart extends Component {
   displayQuantity(product) {
     let count = 0
     let arr = JSON.parse(localStorage.getItem('cart'))
-    for (let i = 0; i < arr.length; i++) {
-      if (product.id === arr[i].id) {
-        count++
+    if (this.state.localCart) {
+      for (let i = 0; i < arr.length; i++) {
+        if (product.id === arr[i].id) {
+          count++
+        }
       }
     }
     return count
