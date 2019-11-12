@@ -18,7 +18,19 @@ router.get('/', async (req, res, next) => {
   try {
     const cart = await Order.findOne({
       where: {userId: req.session.passport.user},
-      include: [{model: Product}]
+      include: [
+        {
+          model: Product,
+          attributes: [
+            'id',
+            'name',
+            'imageUrl',
+            'price',
+            'category',
+            'description'
+          ]
+        }
+      ]
     })
     res.json(cart)
   } catch (error) {
