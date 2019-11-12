@@ -10,7 +10,7 @@ import {
   SingleProduct,
   MyCart
 } from './components'
-import Home from './components/HomePage'
+import Home from './components/Home'
 import {me} from './store'
 
 /**

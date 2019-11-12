@@ -51,6 +51,10 @@ img#AllProducts {
   width: 200px;
 }
 
+img#HomePageIMG {
+  width: 500px;
+}
+
 div#cart-count {
   color: aqua;
   position: absolute;
