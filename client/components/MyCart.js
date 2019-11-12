@@ -9,7 +9,7 @@ import {
 import {connect} from 'react-redux'
 import {Icon, Button} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
-
+import Navbar from './NavBar'
 class MyCart extends Component {
   constructor() {
     super()
@@ -129,6 +129,7 @@ class MyCart extends Component {
   render() {
     return (
       <div>
+        <Navbar />
         {this.props.user.id ? (
           <table className="ui compact celled definition table">
             <thead>

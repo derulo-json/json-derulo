@@ -14,6 +14,8 @@ import {
 } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {SIGHUP} from 'constants'
+import Navbar from './NavBar'
+
 /**
  * COMPONENT
  */
@@ -23,50 +25,53 @@ const AuthForm = props => {
   const signup = 'Sign up for an Account'
   const isLoggedIn = props
   return (
-    <Grid textAlign="center" style={{height: 100}} verticalAlign="middle">
-      <Grid.Column style={{maxWidth: 450}}>
-        <Header as="h2" color="teal" textAlign="center">
-          {displayName === 'Login' && loggin}
-          {displayName === 'Sign Up' && signup}
-        </Header>
-        <Form onSubmit={handleSubmit} name={name} size="large">
-          <Segment stacked style={{width: ' -webkit-fill-available'}}>
-            <Form.Input
-              type="email"
-              name="email"
-              width="15"
-              fluid
-              icon="user"
-              iconPosition="left"
-              placeholder="E-mail address"
-            />
-            <Form.Input
-              name="password"
-              fluid
-              width="15"
-              icon="lock"
-              iconPosition="left"
-              placeholder="Password"
-              type="password"
-              required
-            />
-            <Button type="submit" color="teal" fluid size="large">
-              {displayName}
-            </Button>
-            {error && error.response && <div> {error.response.data} </div>}
-          </Segment>
-        </Form>
-        {displayName === 'Login' && (
-          <Message>
-            New to us?{' '}
-            <Link to="/signup">
-              {' '}
-              <a href="#"> Sign Up</a>{' '}
-            </Link>
-          </Message>
-        )}
-      </Grid.Column>
-    </Grid>
+    <div>
+      <Navbar />
+      <Grid textAlign="center" style={{height: 100}} verticalAlign="middle">
+        <Grid.Column style={{maxWidth: 450}}>
+          <Header as="h2" color="teal" textAlign="center">
+            {displayName === 'Login' && loggin}
+            {displayName === 'Sign Up' && signup}
+          </Header>
+          <Form onSubmit={handleSubmit} name={name} size="large">
+            <Segment stacked style={{width: ' -webkit-fill-available'}}>
+              <Form.Input
+                type="email"
+                name="email"
+                width="15"
+                fluid
+                icon="user"
+                iconPosition="left"
+                placeholder="E-mail address"
+              />
+              <Form.Input
+                name="password"
+                fluid
+                width="15"
+                icon="lock"
+                iconPosition="left"
+                placeholder="Password"
+                type="password"
+                required
+              />
+              <Button type="submit" color="teal" fluid size="large">
+                {displayName}
+              </Button>
+              {error && error.response && <div> {error.response.data} </div>}
+            </Segment>
+          </Form>
+          {displayName === 'Login' && (
+            <Message>
+              New to us?{' '}
+              <Link to="/signup">
+                {' '}
+                <a href="#"> Sign Up</a>{' '}
+              </Link>
+            </Message>
+          )}
+        </Grid.Column>
+      </Grid>
+    </div>
   )
 }
 
