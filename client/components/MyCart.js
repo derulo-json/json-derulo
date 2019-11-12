@@ -12,33 +12,43 @@ import {Link} from 'react-router-dom'
 class MyCart extends Component {
   constructor() {
     super()
-    this.state = {
-      localCart: this.fixLocalCart(JSON.parse(localStorage.getItem('cart')))
+    if (JSON.parse(localStorage.getItem('cart'))) {
+      this.state = {
+        localCart: this.fixLocalCart(JSON.parse(localStorage.getItem('cart'))),
+        arr: null
+      }
+    } else {
+      this.state = {
+        localCart: [],
+        arr: null
+      }
     }
+
     this.handleClick = this.handleClick.bind(this)
+    this.handleClearCart = this.handleClearCart.bind(this)
   }
+
   componentDidMount() {
+    console.log(this.state.localCart)
+    console.log(JSON.parse(localStorage.getItem('cart')))
+    this.fixLocalCart(this.state.localCart)
     this.props.getCartThunk()
-    if (this.state.localCart === null) {
-      this.setState({
-        localCart: []
-      })
-    }
   }
   //delete button
-  async handleClick(e, product) {
+  handleClick(e, product) {
     e.preventDefault()
     const localCart = this.state.localCart
-    if (this.props.user) {
-      await this.props.removeFromCartThunk(product.id)
+    if (this.props.user.id) {
+      console.log('trying to delete')
+      this.props.removeFromCartThunk(product.id)
+      this.props.getCartThunk()
       this.props.getCartThunk()
     } else {
       for (let i = 0; i < this.state.localCart.length; i++) {
         if (this.state.localCart[i].id === product.id) {
-          console.log('i went through and was cut')
-          console.log(localCart)
+          localCart.splice(i, 1)
           this.setState({
-            localCart: localCart.splice(i, 1)
+            localCart: localCart
           })
           localStorage.setItem('cart', JSON.stringify(this.state.localCart))
         }
@@ -47,9 +57,18 @@ class MyCart extends Component {
   }
   async handlePlus(e, product) {
     e.preventDefault()
-    await this.props.plusOneThunk(product)
-    this.props.getCartThunk()
-    console.log(product.cart.quantity)
+    if (this.props.user.id) {
+      await this.props.plusOneThunk(product)
+      this.props.getCartThunk()
+      console.log(product.cart.quantity)
+    } else {
+      let arr = JSON.parse(localStorage.getItem('cart'))
+      arr.push(product)
+      localStorage.setItem('cart', JSON.stringify(arr))
+      this.setState({
+        localCart: this.state.localCart
+      })
+    }
   }
 
   async handleMinus(e, product) {
@@ -68,6 +87,14 @@ class MyCart extends Component {
     })
   }
 
+  handleClearCart(e) {
+    e.preventDefault()
+    this.setState({
+      localCart: []
+    })
+    localStorage.clear()
+  }
+
   fixLocalCart(arr) {
     let newArr = arr
     for (let i = 0; i < arr.length; i++) {
@@ -77,7 +104,20 @@ class MyCart extends Component {
         }
       }
     }
+    this.setState({
+      localCart: newArr
+    })
     return newArr
+  }
+  displayQuantity(product) {
+    let count = 0
+    let arr = JSON.parse(localStorage.getItem('cart'))
+    for (let i = 0; i < arr.length; i++) {
+      if (product.id === arr[i].id) {
+        count++
+      }
+    }
+    return count
   }
 
   render() {
@@ -148,7 +188,7 @@ class MyCart extends Component {
             </tfoot>
           </table>
         ) : (
-          //Loads if the local cart is empty
+          //Loads if the local cart is full
           <table className="ui compact celled definition table">
             <thead>
               <tr>
@@ -159,34 +199,35 @@ class MyCart extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.localCart.map(product => (
-                <tr key={product.id}>
-                  <td>
-                    <Button
-                      onClick={e => this.handleClick(e, product)}
-                      color="teal"
-                    >
-                      <Icon trash="trash" name="trash" />
-                    </Button>
-                  </td>
-                  <td>
-                    <Link to={`/AllProducts/${product.id}`}>
-                      <div>{product.name}</div>
-                      <img id="cartIMG" src={product.imageUrl} width="92px" />
-                    </Link>
-                  </td>
-                  <td>
-                    {this.handleQuantity(product)}
-                    <Button onClick={e => this.handlePlus(e, product)}>
-                      <Icon name="plus square outline" />
-                    </Button>
-                    <Button onClick={e => this.handleMinus(e, product)}>
-                      <Icon name="minus square outline" />
-                    </Button>
-                  </td>
-                  <td>${product.price / 100}</td>
-                </tr>
-              ))}
+              {this.state.localCart &&
+                this.state.localCart.map(product => (
+                  <tr key={product.id}>
+                    <td>
+                      <Button
+                        onClick={e => this.handleClick(e, product)}
+                        color="teal"
+                      >
+                        <Icon trash="trash" name="trash" />
+                      </Button>
+                    </td>
+                    <td>
+                      <Link to={`/AllProducts/${product.id}`}>
+                        <div>{product.name}</div>
+                        <img id="cartIMG" src={product.imageUrl} width="92px" />
+                      </Link>
+                    </td>
+                    <td>
+                      {this.displayQuantity(product)}
+                      <Button onClick={e => this.handlePlus(e, product)}>
+                        <Icon name="plus square outline" />
+                      </Button>
+                      <Button onClick={e => this.handleMinus(e, product)}>
+                        <Icon name="minus square outline" />
+                      </Button>
+                    </td>
+                    <td>${product.price / 100}</td>
+                  </tr>
+                ))}
             </tbody>
             <tfoot className="full-width">
               <tr>
