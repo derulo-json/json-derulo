@@ -63,9 +63,9 @@ const AuthForm = props => {
           {displayName === 'Login' && (
             <Message>
               New to us?{' '}
-              <Link to="/signup">
+              <Link id="new" to="/signup">
                 {' '}
-                <a href="#"> Sign Up</a>{' '}
+                Sign Up
               </Link>
             </Message>
           )}

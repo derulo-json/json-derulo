@@ -4,6 +4,7 @@ import {gotProductThunk} from '../store/singleProduct'
 import {addToCartThunk, getCart} from '../store/cart'
 import {Button, Popup} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
+import {DesktopContainer} from './Home'
 
 class SingleProduct extends Component {
   constructor() {
@@ -31,6 +32,7 @@ class SingleProduct extends Component {
     const singleProduct = this.props.singleProduct
     return (
       <div>
+        <DesktopContainer />
         <div id="products-container" className="left-container">
           <div>{singleProduct.name}</div>
           <img src={singleProduct.imageUrl} />

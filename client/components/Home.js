@@ -16,6 +16,7 @@ import {
   Sidebar,
   Visibility
 } from 'semantic-ui-react'
+import {Navbar} from '.'
 
 // Heads up!
 // We using React Static to prerender our docs with server side rendering, this is a quite simple solution.
@@ -144,21 +145,7 @@ export class DesktopContainer extends Component {
                   </button>
                 </Menu.Item>
                 <Menu.Item position="right">
-                  <Link to="/login">
-                    <Button as="a" inverted={!fixed}>
-                      Log in
-                    </Button>
-                  </Link>
-                  <Link to="/signup">
-                    <Button
-                      as="a"
-                      inverted={!fixed}
-                      primary={fixed}
-                      style={{marginLeft: '0.5em'}}
-                    >
-                      Sign Up
-                    </Button>
-                  </Link>
+                  <Navbar />
                 </Menu.Item>
               </Container>
             </Menu>
