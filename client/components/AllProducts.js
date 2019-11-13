@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {gotAllProductsThunk} from '../store/products'
 import {Link} from 'react-router-dom'
-import Navbar from './NavBar'
+import {DesktopContainer} from './Home'
 
 // become a functional component that connects to the store and maps to products
 class AllProducts extends Component {
@@ -22,7 +22,7 @@ class AllProducts extends Component {
 
     return (
       <div>
-        <Navbar />
+        <DesktopContainer />
         <div id="products-container" className="left-container">
           {filtered.map(product => (
             <div key={product.id}>

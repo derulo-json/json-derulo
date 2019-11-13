@@ -67,3 +67,11 @@ h1.ui.inverted.header {
 a {
   color: white;
 }
+.ui.menu > .container,
+.ui.menu > .grid {
+  background-color: #1b1c1d;
+}
+
+a#new {
+  color: blue;
+}

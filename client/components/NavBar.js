@@ -26,31 +26,6 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
               <Link to="/signup">Sign Up</Link>
             </div>
           )}
-          <Link to="/home">Home</Link>
-          <Link id="Cart-Length" to="/cart">
-            {cart ? (
-              <div>
-                <div id="cart-count">{cart}</div>
-                <div>
-                  <Icon name="shopping cart" />
-                </div>
-              </div>
-            ) : (
-              <Icon name="shopping cart" />
-            )}
-          </Link>
-          <div className="dropdown">
-            <button background-color="unset" type="button" className="dropbtn">
-              Shop
-            </button>
-            <div className="dropdown-content">
-              <Link to="/allproducts">All Products</Link>
-              <Link to="/apparel">Apparel </Link>
-              <Link to="/music">Music</Link>
-              <Link to="/treasures">Treasures</Link>
-              <Link to="/cart">Cart</Link>
-            </div>
-          </div>
         </div>
       </div>
     </nav>
